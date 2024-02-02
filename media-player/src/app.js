@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import config from './config.js';
+import connectionDB from './database/connectionDB.js';
 
 const app = express();
 
@@ -29,3 +30,6 @@ const { port } = config || 8080;
 const httpServer = app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
+
+// Database connection
+connectionDB();
