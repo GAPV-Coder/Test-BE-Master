@@ -1,0 +1,40 @@
+{
+  "name": "media-player",
+  "version": "1.0.0",
+  "description": "Backend application for video management ",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GAPV-Coder/Test-BE-Master.git"
+  },
+  "author": "Gustavo Pereira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GAPV-Coder/Test-BE-Master/issues"
+  },
+  "homepage": "https://github.com/GAPV-Coder/Test-BE-Master#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "nodemon": "^3.0.3",
+    "prettier": "^3.2.4"
+  }
+}
