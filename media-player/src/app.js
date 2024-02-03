@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import bodyParser from 'body-parser';
 import config from './config.js';
 import connectionDB from './database/connectionDB.js';
 
@@ -24,6 +26,8 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(helmet());
 
 // Server configuration
 const { port } = config || 8080;
