@@ -59,11 +59,11 @@ export const loginUserServices = async (email, password) => {
         }
 
         const token = jwtHelper.generateToken({
-            user_id: user._id,
+            id: user.id,
             email: user.email,
         });
 
-        return { user: { _id: user._id, email: user.email }, token };
+        return { user: { _id: user.id, email: user.email }, token };
     } catch (error) {
         throw new AppError(`Login failed ${error.message}`, 403);
     }

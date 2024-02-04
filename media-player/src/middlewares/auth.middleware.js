@@ -3,20 +3,35 @@ import jwtHelper from '../helpers/jwt.js';
 import config from '../config.js';
 import UserModel from '../models/user.model.js';
 
+const { jwtSecretKey } = config;
+
 export const isAuth = async (req, res, next) => {
     try {
-        const token = req.headers.authorization;
-
-        if (!token) {
-            throw new AppError('Authentication failed. Token not provided.', 401)
+        let token;
+        if (
+            req.headers.authorization &&
+            req.headers.authorization.startsWith('Bearer')
+        ) {
+            token = req.headers.authorization.split(' ')[1];
         }
 
-        const decoded = jwtHelper.verifyToken(token, config.jwtSecretKey);
+        if (!token) {
+            throw new AppError(
+                'Authentication failed. Token not provided.',
+                401,
+            );
+        }
 
-        const user = UserModel.findById(decoded.user_id);
+        const decoded = jwtHelper.verifyToken(token, jwtSecretKey);
+
+        if (!decoded) {
+            throw new AppError('Invalid token.', 401);
+        }
+
+        const user = await UserModel.findOne(decoded.id);
 
         if (!user) {
-            throw new AppError('User not found', 404)
+            throw new AppError('User not found', 404);
         }
 
         req.user = user;
@@ -27,11 +42,15 @@ export const isAuth = async (req, res, next) => {
     }
 };
 
-export const restrictTo = async (...roles) => {
+export const restrictTo = (...roles) => {
     return (req, res, next) => {
         try {
             if (!roles.includes(req.user.role)) {
-                throw new AppError('Permission denied. You do not have access to this resource.', 403);
+                console.log('REQ.USER.ROLE', req.user.role);
+                throw new AppError(
+                    'Permission denied. You do not have access to this resource.',
+                    403,
+                );
             }
 
             next();
