@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { jwtSecretKey, expirationToken } from '../config.js';
+import config from '../config.js';
 
 const generateToken = (user) => {
     if (!user.user_id || !user.email) {
@@ -13,7 +13,7 @@ const generateToken = (user) => {
         email: user.email,
     };
 
-    const token = jwt.sign(payload, jwtSecretKey, { expiresIn: expirationToken });
+    const token = jwt.sign(payload, config.jwtSecretKey, { expiresIn: config.expirationToken });
 
     return token;
 };
@@ -24,7 +24,7 @@ const verifyToken = (token) => {
     }
 
     try {
-        const decoded = jwt.verify(token, jwtSecretKey);
+        const decoded = jwt.verify(token, config.jwtSecretKey);
 
         if (decoded.user_id && decoded.email) {
             return true;

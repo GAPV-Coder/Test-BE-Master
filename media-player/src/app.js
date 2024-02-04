@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import config from './config.js';
 import connectionDB from './database/connectionDB.js';
+import routes from './routes/index.js';
 
 const app = express();
 
@@ -28,6 +29,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
+
+// Routes
+app.use('/api/v1', routes);
 
 // Server configuration
 const { port } = config || 8080;
