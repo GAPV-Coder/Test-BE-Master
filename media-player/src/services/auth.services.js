@@ -29,7 +29,7 @@ export const registerUserServices = async (
         });
 
         const token = jwtHelper.generateToken({
-            user_id: newUser._id,
+            id: newUser.id,
             email: newUser.email,
         });
 
